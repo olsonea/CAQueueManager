@@ -5,6 +5,7 @@
         <members>Queue_Manager_Controller</members>
         <members>Queue_Manager_Test</members>
         <members>Queue_Manager_TestData</members>
+        <members>sObjectTriggerHandler</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -26,10 +27,6 @@
     <types>
         <members>Queue_Managers</members>
         <name>CustomTab</name>
-    </types>
-    <types>
-        <members>Cloudaction_Logo</members>
-        <name>Document</name>
     </types>
     <types>
         <members>Cloudaction_Logo/Cloudaction_Logo.png</members>
