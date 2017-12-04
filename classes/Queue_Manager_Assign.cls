@@ -23,14 +23,14 @@ public class Queue_Manager_Assign
 			Id queueManagerId = queueManagerMap.get( ownerId );
 			boolean sendEmailAlert = emailAlertMap.get(ownerId);
 			
-			system.debug('hasSObjectField(QUEUE_MANAGER_API_NAME, sObj) = ' + hasSObjectField(QUEUE_MANAGER_API_NAME, sObj));
+			//system.debug('hasSObjectField(QUEUE_MANAGER_API_NAME, sObj) = ' + hasSObjectField(QUEUE_MANAGER_API_NAME, sObj));
 			
 			if (queueManagerId != null && hasSObjectField(QUEUE_MANAGER_API_NAME, sObj)) 
 			{
 				sObj.put(QUEUE_MANAGER_API_NAME, queueManagerId);
 			}
 			
-			if (sendEmailAlert && hasSObjectField(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sObj)) 
+			if (sendEmailAlert && hasSObjectField(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sObj))
 			{
 				sObj.put(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sendEmailAlert);
 			}

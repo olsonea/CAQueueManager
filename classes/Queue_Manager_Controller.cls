@@ -92,13 +92,13 @@ public class Queue_Manager_Controller
 		
 	}
 	
-	public PageReference addNew() 
+	/*public PageReference addNew() 
 	{
 		upsert newQM;
 		newQM = new Queue_Manager_Mapping__c();
 		this.queueManagers = getQueueManagers();
 		return null;
-	}
+	}*/
 	
 	public PageReference delQM() 
 	{
