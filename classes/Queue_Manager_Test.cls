@@ -91,4 +91,25 @@ private class Queue_Manager_Test
 		
 	}
 	
+	static testMethod void testInitializeQueues()
+	{
+		Map<Id,Queue_Manager_Mapping__c> queueManagerMapByQueueId = Queue_Manager_TestDataFactory.getQueueManagerMapByQueueId();
+		
+		if(queueManagerMapByQueueId.IsEmpty())
+		{
+			List<Queue_Manager_Mapping__c> queueManagerMappings = Queue_Manager_TestDataFactory.createQueueManagerMappings();	
+		}
+		
+		Queue_Manager_Controller queueManagerController = new Queue_Manager_Controller ();
+		
+		Test.StartTest();
+		queueManagerController.initializeQueues();
+		Test.StopTest();
+		
+		List <QueueSObject> assertQueueSObject = [select queueId, sObjectType from QueueSObject where sObjectType = 'Queue_Manager_Mapping__c'];
+		List <Queue_Manager_Mapping__c> assertQueueMappings = [select Id, Queue_Id__c from Queue_Manager_Mapping__c];
+		
+		system.AssertEquals(assertQueueSObject.size(), assertQueueMappings.size());
+	}
+	
 }

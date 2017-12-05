@@ -13,7 +13,8 @@ public class Queue_Manager_Controller
 	
 	public PageReference initializeQueues()
 	{
-		List <Group> queues = [select Id, Name from group where type = 'Queue'];
+		Map <Id, Group> queueMap = new Map <Id, Group>([select Id, Name from group where type = 'Queue']);
+		List<QueueSObject> queueSObjectList = [select queueId, sObjectType from QueueSObject where sObjectType = 'Queue_Manager_Mapping__c'];
 		List <Queue_Manager_Mapping__c> queueManagerMappings = new List <Queue_Manager_Mapping__c>();
 		List <Queue_Manager_Mapping__c> existingQueueMappings = [select Id, Queue_Id__c from Queue_Manager_Mapping__c];
 		Set<String> existingQueueMappingSet = new Set<string>();
@@ -23,8 +24,10 @@ public class Queue_Manager_Controller
 			existingQueueMappingSet.add(queue.Queue_Id__c);
 		}
 		
-		for(Group queue :queues)
+		for(QueueSObject queueSObjectRecord :queueSObjectList)
 		{
+			Group queue = queueMap.get(queueSObjectRecord.queueId);
+			
 			if(existingQueueMappingSet.contains(queue.Name))
 			{}
 			else
@@ -39,13 +42,13 @@ public class Queue_Manager_Controller
 			}
 		}
 		
-		try
+		if(queueManagerMappings.size() > 0)
 		{
-			upsert queueManagerMappings;
-		}
-		catch (exception e)
-		{
-			System.debug('The following exception has occurred: ' + e.getMessage());
+			try
+			{
+				upsert queueManagerMappings;
+			}
+			catch (exception e){System.debug('The following exception has occurred: ' + e.getMessage());}
 		}
 		
 		return null;
