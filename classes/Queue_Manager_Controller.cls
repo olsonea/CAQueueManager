@@ -48,7 +48,10 @@ public class Queue_Manager_Controller
 			{
 				upsert queueManagerMappings;
 			}
-			catch (exception e){System.debug('The following exception has occurred: ' + e.getMessage());}
+			catch (exception e)
+			{
+				System.debug('The following exception has occurred: ' + e.getMessage());
+			}
 		}
 		
 		return null;
