@@ -63,11 +63,13 @@ public class Queue_Manager_Assign
 		List<Queue_Manager_Mapping__c> queueManagerMappingList = 
 			[select Id, OwnerId, Queue_Id__c, User__c from Queue_Manager_Mapping__c where OwnerId IN :ownerSet];
 			
-		for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
-		{
-			queueManagerMap.put(queueManagerMapping.OwnerId, queueManagerMapping.User__c);
+		if(queueManagerMappingList.size() > 0)
+		{	
+			for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
+			{
+				queueManagerMap.put(queueManagerMapping.OwnerId, queueManagerMapping.User__c);
+			}
 		}
-		
 		return queueManagerMap;
 	}
 	
