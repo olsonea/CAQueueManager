@@ -30,6 +30,8 @@ public class Queue_Manager_Assign
 				sObj.put(QUEUE_MANAGER_API_NAME, queueManagerId);
 			}
 			
+			system.debug('hasSObjectField(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sObj) = ' + hasSObjectField(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sObj));
+			system.debug('sendEmailAlert) = ' + sendEmailAlert);
 			if (sendEmailAlert && hasSObjectField(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sObj))
 			{
 				sObj.put(SEND_EMAIL_ALERTS_TO_QUEUE_API_NAME, sendEmailAlert);
