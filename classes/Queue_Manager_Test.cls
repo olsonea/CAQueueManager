@@ -23,7 +23,7 @@ private class Queue_Manager_Test
 		
 	}*/
 	
-	static testMethod void queueAssignOnInsert()
+	static testMethod void queueAssignOnIncidentInsert()
 	{
 		Test.startTest();
 		BMCServiceDesk__Incident__c incident = Queue_Manager_TestDataFactory.createIncident();
@@ -42,7 +42,7 @@ private class Queue_Manager_Test
 		System.assertEquals(assertIncident[0].Queue_Manager__c, assertQueueManager.User__c);
 	}
 	
-	static testMethod void queueAssignOnUpdate()
+	static testMethod void queueAssignOnIncidentUpdate()
 	{
 		BMCServiceDesk__Incident__c incident = Queue_Manager_TestDataFactory.createIncident();
 		system.assertNotEquals(null, incident);
@@ -110,6 +110,52 @@ private class Queue_Manager_Test
 		List <Queue_Manager_Mapping__c> assertQueueMappings = [select Id, Queue_Id__c from Queue_Manager_Mapping__c];
 		
 		system.AssertEquals(assertQueueSObject.size(), assertQueueMappings.size());
+	}
+	
+	static testMethod void queueAssignOnProblemInsert()
+	{
+		Test.startTest();
+		BMCServiceDesk__Problem__c problem = Queue_Manager_TestDataFactory.createProblem();
+		system.assertNotEquals(null, problem.id);
+		Test.stopTest();
+		
+		List<BMCServiceDesk__Problem__c> assertProblem = 
+			[select Id, OwnerId, Queue_Manager__c from BMCServiceDesk__Problem__c where Id = :problem.id];
+		System.assertNotEquals(null,assertProblem);
+			
+		Map<Id, Queue_Manager_Mapping__c> queueManagerMapByQueueId = Queue_Manager_TestDataFactory.getQueueManagerMapByQueueId();
+		System.assertNotEquals(null,queueManagerMapByQueueId);
+		
+		Queue_Manager_Mapping__c assertQueueManager = queueManagerMapByQueueId.get(assertProblem[0].OwnerId);
+			
+		System.assertEquals(assertProblem[0].Queue_Manager__c, assertQueueManager.User__c);
+	}
+	
+	static testMethod void queueAssignOnProblemUpdate()
+	{
+		BMCServiceDesk__Problem__c problem = Queue_Manager_TestDataFactory.createProblem();
+		List<Group> queues = [select id from group];
+		
+		Test.startTest();
+		problem.ownerId = queues[1].id;
+
+		try
+		{
+			update problem;
+		}
+		catch(Exception e)
+        {/*TODO: implement errorLogging*/}
+		Test.stopTest();
+		
+		BMCServiceDesk__Problem__c assertProblem = 
+			[select Id, OwnerId, Queue_Manager__c from BMCServiceDesk__Problem__c LIMIT 1];
+		
+		system.assertNotEquals(assertProblem.ownerId, queues[1].id);
+			
+		Queue_Manager_Mapping__c assertQueueManager = 
+			[select Id, Queue_Id__c, User__c from Queue_Manager_Mapping__c where OwnerId = :assertProblem.OwnerId LIMIT 1];
+			
+		System.assertEquals(assertProblem.Queue_Manager__c,assertQueueManager.User__c);
 	}
 	
 }
