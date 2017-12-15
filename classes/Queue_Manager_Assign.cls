@@ -81,12 +81,14 @@ public class Queue_Manager_Assign
 		
 		List<Queue_Manager_Mapping__c> queueManagerMappingList = 
 			[select Id, OwnerId, Send_Email_Alerts_to_Queue__c from Queue_Manager_Mapping__c where OwnerId IN :ownerSet];
-			
-		for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
-		{
-			emailAlertMap.put(queueManagerMapping.OwnerId, queueManagerMapping.Send_Email_Alerts_to_Queue__c);
-		}
 		
+		if(queueManagerMappingList.size() > 0)
+		{
+			for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
+			{
+				emailAlertMap.put(queueManagerMapping.OwnerId, queueManagerMapping.Send_Email_Alerts_to_Queue__c);
+			}
+		}
 		return emailAlertMap;
 	}
 	
