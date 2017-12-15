@@ -20,6 +20,7 @@ public class Queue_Manager_Assign
 		{
 			
 			String ownerId = String.valueOf(sObj.get('OwnerId'));
+			system.debug('ownerId = ' + ownerId);
 			Id queueManagerId = queueManagerMap.get( ownerId );
 			boolean sendEmailAlert = emailAlertMap.get(ownerId);
 			
@@ -67,6 +68,7 @@ public class Queue_Manager_Assign
 		{	
 			for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
 			{
+				System.debug('queueManagerMapping.OwnerId = ' + queueManagerMapping.OwnerId);
 				queueManagerMap.put(queueManagerMapping.OwnerId, queueManagerMapping.User__c);
 			}
 		}
@@ -86,6 +88,7 @@ public class Queue_Manager_Assign
 		{
 			for (Queue_Manager_Mapping__c queueManagerMapping :queueManagerMappingList) 
 			{
+				System.debug('queueManagerMapping.OwnerId = ' + queueManagerMapping.OwnerId);
 				emailAlertMap.put(queueManagerMapping.OwnerId, queueManagerMapping.Send_Email_Alerts_to_Queue__c);
 			}
 		}
