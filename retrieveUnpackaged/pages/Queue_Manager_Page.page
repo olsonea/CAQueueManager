@@ -1,0 +1,43 @@
+<apex:page controller="Queue_Manager_Controller" action="{!initializeQueues}">
+
+<apex:sectionHeader title="Queue Managers" description="Cloudaction" />
+	<apex:form >
+		<apex:messages ></apex:messages>
+		<apex:pageBlock id="mainPB">
+			
+			
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Save" action="{!save}" reRender="mainPB" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockTable value="{!queueManagers}" var="qm">
+				
+				<apex:column headerValue="Queue">
+					<apex:inputField value="{!qm.Queue_Id__c}" html-disabled="true" />
+				</apex:column>
+				
+				<apex:column headerValue="Manager">
+					<apex:inputField value="{!qm.User__c}" />
+				</apex:column>
+				
+				<apex:column headerValue="Send Email Alerts to Queue">
+					<apex:inputField value="{!qm.Send_Email_Alerts_to_Queue__c}" />
+				</apex:column>
+				
+				<apex:column headerValue="Actions">
+        			<apex:commandLink value="Delete" action="{!delQM}">
+            			<apex:param name="qmId"
+                			value="{!qm.Id}"
+                			assignTo="{!qmId}"/>
+        			</apex:commandLink>
+				</apex:column>
+				
+			</apex:pageBlockTable>
+			
+			
+
+		</apex:pageBlock>
+		
+	</apex:form>
+	
+</apex:page>
