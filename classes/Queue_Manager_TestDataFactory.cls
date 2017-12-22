@@ -165,4 +165,30 @@ public class Queue_Manager_TestDataFactory
         
         return incident;
     }
+    
+    public static BMCServiceDesk__Problem__c createProblem()
+    {   
+        //TODO: Add Assertions
+        
+        User testUser = new User(Id=UserInfo.getUserId());
+        List<Queue_Manager_Mapping__c> queueManagerMappingList = createQueueManagerMappings();
+        BMCServiceDesk__Category__c category = createCategory();
+        
+        BMCServiceDesk__Problem__c problem = new BMCServiceDesk__Problem__c
+        (
+			BMCServiceDesk__FKCategory__c = category.id,
+			BMCServiceDesk__Problem_Description__c = 'test description',
+			OwnerId = queueManagerMappingList[0].OwnerId
+		);
+		
+		try
+		{
+		    insert problem;
+	    }
+	    catch(Exception e)
+        {/*TODO: implement errorLogging*/}
+        system.assertNotEquals(null, problem);
+        
+        return problem;
+    }
 }
